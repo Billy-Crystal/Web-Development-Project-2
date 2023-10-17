@@ -12,18 +12,47 @@ function AdvancedJS() {
     // Function to toggle the visibility of Component Demos
     const toggleComponentDemo1 = () => {
         setShowComponentDemo1(!showComponentDemo1);
+        // Hide other demos when showing Demo-1
+        setShowComponentDemo2(false);
+        setShowComponentDemo3(false);
+        setShowComponentDemo4(false);
+        setShowComponentDemo5(false);
     };
+
     const toggleComponentDemo2 = () => {
         setShowComponentDemo2(!showComponentDemo2);
+        // Hide other demos when showing Demo-2
+        setShowComponentDemo1(false);
+        setShowComponentDemo3(false);
+        setShowComponentDemo4(false);
+        setShowComponentDemo5(false);
     };
+
     const toggleComponentDemo3 = () => {
         setShowComponentDemo3(!showComponentDemo3);
+        // Hide other demos when showing Demo-3
+        setShowComponentDemo1(false);
+        setShowComponentDemo2(false);
+        setShowComponentDemo4(false);
+        setShowComponentDemo5(false);
     };
+
     const toggleComponentDemo4 = () => {
         setShowComponentDemo4(!showComponentDemo4);
+        // Hide other demos when showing Demo-4
+        setShowComponentDemo1(false);
+        setShowComponentDemo2(false);
+        setShowComponentDemo3(false);
+        setShowComponentDemo5(false);
     };
+
     const toggleComponentDemo5 = () => {
         setShowComponentDemo5(!showComponentDemo5);
+        // Hide other demos when showing Demo-5
+        setShowComponentDemo1(false);
+        setShowComponentDemo2(false);
+        setShowComponentDemo3(false);
+        setShowComponentDemo4(false);
     };
     //Component UI: HTML Rendering
     return (
