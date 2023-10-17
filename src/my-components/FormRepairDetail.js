@@ -38,12 +38,52 @@ function FormRepairDetail() {
             </div>
             {/*Other details*/}
             <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">IMEI *</label>
+                <label class="col-12 col-md-12 col-lg-4">IMEI Number: *</label>
                 <input
                     class="col-12 col-md-12 col-lg-7"
                     type="number"
                     id="imei"
                     required
+                />
+            </div>
+            <div class="row mt-1">
+                <label class="col-12 col-md-12 col-lg-4">Make:</label>
+                <select class="col-12 col-md-12 col-lg-7" id="makeList">
+                    <option value="none" selected>
+                        None
+                    </option>
+                    <option value="iphone">iPhone</option>
+                    <option value="samsung">Samsung Galaxy</option>
+                    <option value="nokia">Nokia</option>
+                </select>
+            </div>
+            <div class="row mt-1">
+                <label class="col-12 col-md-12 col-lg-4">Model Number:</label>
+                <input
+                    class="col-12 col-md-12 col-lg-7"
+                    type="number"
+                    id="modelnumber"
+                />
+            </div>
+            <div class="row mt-1">
+                <label class="col-12 col-md-12 col-lg-4">
+                    Fault Category: *
+                </label>
+                <select class="col-12 col-md-12 col-lg-7" id="faultcategory">
+                    <option value="none" selected>
+                        None
+                    </option>
+                    <option value="screen">Screen</option>
+                    <option value="battery">Battery</option>
+                </select>
+            </div>
+            <div class="row mt-1">
+                <label class="col-12 col-md-12 col-lg-4">Description: *</label>
+                <textarea
+                    class="col-12 col-md-12 col-lg-7"
+                    id="description"
+                    required
+                    style={{ resize: "vertical", minHeight: "135px" }}
                 />
             </div>
         </>

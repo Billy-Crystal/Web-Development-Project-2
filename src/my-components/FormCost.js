@@ -34,6 +34,26 @@ function FormCost() {
                     readonly
                 />
             </div>
+            <div class="row mt-1  ms-3">
+                <label class="col-12 col-md-12 col-lg-4">GST ($)</label>
+                <input
+                    class="col-12 col-md-12 col-lg-7"
+                    type="number"
+                    id="gst"
+                    value="0.00"
+                    readonly
+                />
+            </div>
+            <div class="row mt-1  ms-3">
+                <label class="col-12 col-md-12 col-lg-4">Total+GST ($)</label>
+                <input
+                    class="col-12 col-md-12 col-lg-7"
+                    type="number"
+                    id="totalGstFee"
+                    value="0.00"
+                    readonly
+                />
+            </div>
         </>
     );
 }
