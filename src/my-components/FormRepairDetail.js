@@ -1,5 +1,9 @@
 //Function Component
-function FormRepairDetail() {
+function FormRepairDetail({ passDataToParent }) {
+    const updateWarranty = (value) => {
+        passDataToParent(value); //Child1 (FormCourtesyPhone)
+    };
+
     //Component UI: HTML Rendering
     return (
         <>
@@ -32,7 +36,14 @@ function FormRepairDetail() {
                         <label class="col-12 col-md-12 col-lg-4">
                             Warranty
                         </label>
-                        <input type="checkbox" id="warranty" />
+                        <input
+                            type="checkbox"
+                            id="warranty"
+                            onChange={(event) =>
+                                updateWarranty(event.target.checked)
+                            }
+                        />
+                        {/*passDataToParent(event.target.checked). This is shared warranty need to pass upto parent Component "Home" */}
                     </div>
                 </fieldset>
             </div>

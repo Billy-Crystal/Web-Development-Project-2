@@ -1,5 +1,5 @@
 //Function Component
-function FormCost() {
+function FormCost(props) {
     //Component UI: HTML Rendering
     return (
         <>
@@ -10,7 +10,7 @@ function FormCost() {
                     class="col-12 col-md-12 col-lg-7"
                     type="number"
                     id="bond"
-                    value="0.00"
+                    value={props.sharedPropBond}
                     readonly
                 />
             </div>
@@ -20,7 +20,7 @@ function FormCost() {
                     class="col-12 col-md-12 col-lg-7"
                     type="number"
                     id="serviceFee"
-                    value="85.00"
+                    value={props.sharedPropWarranty ? 0 : 85}
                     readonly
                 />
             </div>

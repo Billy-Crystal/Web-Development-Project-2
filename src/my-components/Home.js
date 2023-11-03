@@ -5,9 +5,19 @@ import FormCourtesyPhone from "./FormCourtesyPhone";
 import FormCost from "./FormCost";
 import FormButtons from "./FormButtons";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 //Function Component
 function Home() {
+    //Parent Component "Home"
+    const updateSharedState = (value) => setsharedBond(value); //Child1(FormCourtesyPhone) pass data to Child2
+    const [sharedBond, setsharedBond] = useState(0); //Child2(FormCost) receive data from Child1
+
+    const updateWarranty = (value) => {
+        setsharedWarranty(value);
+    }; //Child1 pass data to Child2
+    const [sharedWarranty, setsharedWarranty] = useState(false); //Child2 receive data from Child1
+
     const navigate = useNavigate();
     const onSubmit = async (event) => {
         event.preventDefault(); //prevent browser from sending data to server
@@ -49,7 +59,7 @@ function Home() {
                             backgroundColor: "#D5F5E3",
                         }}
                     >
-                        <FormRepairDetail />
+                        <FormRepairDetail passDataToParent={updateWarranty} />
                     </div>
 
                     {/*Courtesy Phone & Cost*/}
@@ -62,7 +72,10 @@ function Home() {
                                 backgroundColor: "#2874A6",
                             }}
                         >
-                            <FormCourtesyPhone />
+                            <FormCourtesyPhone
+                                passDataToParent={updateSharedState}
+                            />
+                            {/*Child1*/}
                         </div>
                         {/*Cost*/}
                         <div
@@ -72,7 +85,11 @@ function Home() {
                                 backgroundColor: "#EDBB99",
                             }}
                         >
-                            <FormCost />
+                            <FormCost
+                                sharedPropBond={sharedBond}
+                                sharedPropWarranty={sharedWarranty}
+                            />
+                            {/*Child2 (FormCost)*/}
                         </div>
                     </div>
 
