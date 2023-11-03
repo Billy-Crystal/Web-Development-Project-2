@@ -1,146 +1,108 @@
-import React, { useState } from "react";
+//Import all dependencies, other Components
+import { useState } from "react";
+import Demo1 from "./Demo1";
 
 //Function Component
 function AdvancedJS() {
-    // State to manage the visibility of Component Demos
-    const [showComponentDemo1, setShowComponentDemo1] = useState(false);
-    const [showComponentDemo2, setShowComponentDemo2] = useState(false);
-    const [showComponentDemo3, setShowComponentDemo3] = useState(false);
-    const [showComponentDemo4, setShowComponentDemo4] = useState(false);
-    const [showComponentDemo5, setShowComponentDemo5] = useState(false);
-
-    // Function to toggle the visibility of Component Demos
-    const toggleComponentDemo1 = () => {
-        setShowComponentDemo1(!showComponentDemo1);
-        // Hide other demos when showing Demo-1
-        setShowComponentDemo2(false);
-        setShowComponentDemo3(false);
-        setShowComponentDemo4(false);
-        setShowComponentDemo5(false);
-    };
-
-    const toggleComponentDemo2 = () => {
-        setShowComponentDemo2(!showComponentDemo2);
-        // Hide other demos when showing Demo-2
-        setShowComponentDemo1(false);
-        setShowComponentDemo3(false);
-        setShowComponentDemo4(false);
-        setShowComponentDemo5(false);
-    };
-
-    const toggleComponentDemo3 = () => {
-        setShowComponentDemo3(!showComponentDemo3);
-        // Hide other demos when showing Demo-3
-        setShowComponentDemo1(false);
-        setShowComponentDemo2(false);
-        setShowComponentDemo4(false);
-        setShowComponentDemo5(false);
-    };
-
-    const toggleComponentDemo4 = () => {
-        setShowComponentDemo4(!showComponentDemo4);
-        // Hide other demos when showing Demo-4
-        setShowComponentDemo1(false);
-        setShowComponentDemo2(false);
-        setShowComponentDemo3(false);
-        setShowComponentDemo5(false);
-    };
-
-    const toggleComponentDemo5 = () => {
-        setShowComponentDemo5(!showComponentDemo5);
-        // Hide other demos when showing Demo-5
-        setShowComponentDemo1(false);
-        setShowComponentDemo2(false);
-        setShowComponentDemo3(false);
-        setShowComponentDemo4(false);
+    //State
+    const [clickedButton, setClickedButton] = useState(0);
+    const toggleDemo = (index) => {
+        setClickedButton(index);
     };
     //Component UI: HTML Rendering
     return (
         <>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12 col-md-3">
-                        <div class="row" style={{ backgroundColor: "red" }}>
-                            <div class="col-sm-6 col-md-12">
-                                <button
-                                    class="btn btn-primary"
-                                    style={{
-                                        width: "100%",
-                                        marginTop: "3px",
-                                        marginBottom: "3px",
-                                    }}
-                                    onClick={toggleComponentDemo1}
-                                >
-                                    Demo-1
-                                </button>
-                            </div>
-                            <div class="col-sm-6 col-md-12">
-                                <button
-                                    class="btn btn-primary"
-                                    style={{
-                                        width: "100%",
-                                        marginBottom: "3px",
-                                    }}
-                                    onClick={toggleComponentDemo2}
-                                >
-                                    Demo-2
-                                </button>
-                            </div>
-                            <div class="col-sm-6 col-md-12">
-                                <button
-                                    class="btn btn-primary"
-                                    style={{
-                                        width: "100%",
-                                        marginBottom: "3px",
-                                    }}
-                                    onClick={toggleComponentDemo3}
-                                >
-                                    Demo-3
-                                </button>
-                            </div>
-                            <div class="col-sm-6 col-md-12">
-                                <button
-                                    class="btn btn-primary"
-                                    style={{
-                                        width: "100%",
-                                        marginBottom: "3px",
-                                    }}
-                                    onClick={toggleComponentDemo4}
-                                >
-                                    Demo-4
-                                </button>
-                            </div>
-                            <div class="col-sm-6 col-md-12">
-                                <button
-                                    class="btn btn-primary"
-                                    style={{
-                                        width: "100%",
-                                        marginBottom: "3px",
-                                    }}
-                                    onClick={toggleComponentDemo5}
-                                >
-                                    Demo-5
-                                </button>
-                            </div>
+            <div style={{ minHeight: "60vh" }}>
+                {/*BUTTONS AND DEMOS*/}
+                <div class="row mt-2 p-0">
+                    {/*Column 1 */}
+                    <div class="col-12 col-md-2 bg-primary ">
+                        <div class="row">
+                            <button
+                                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                                onClick={() => toggleDemo(1)}
+                            >
+                                DEMO-1
+                            </button>
+                            <button
+                                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                                onClick={() => toggleDemo(2)}
+                            >
+                                DEMO-2
+                            </button>
+                            <button
+                                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                                onClick={() => toggleDemo(3)}
+                            >
+                                DEMO-3
+                            </button>
+                            <button
+                                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                                onClick={() => toggleDemo(4)}
+                            >
+                                DEMO-4
+                            </button>
+                            <button
+                                class="col-6 col-md-12 btn btn-outline-warning mb-1"
+                                onClick={() => toggleDemo(5)}
+                            >
+                                DEMO-5
+                            </button>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-9">
-                        <div class="row" style={{ backgroundColor: "purple" }}>
-                            {showComponentDemo1 && (
-                                <div className="col-12">Component Demo-1</div>
-                            )}
-                            {showComponentDemo2 && (
-                                <div className="col-12">Component Demo-2</div>
-                            )}
-                            {showComponentDemo3 && (
-                                <div className="col-12">Component Demo-3</div>
-                            )}
-                            {showComponentDemo4 && (
-                                <div className="col-12">Component Demo-4</div>
-                            )}
-                            {showComponentDemo5 && (
-                                <div className="col-12">Component Demo-5</div>
-                            )}
+                    {/*Column 2*/}
+                    <div class="col-12 col-md-10 bg-secondary ">
+                        <div class="row" style={{ minHeight: "50vh" }}>
+                            <div
+                                class="col-12"
+                                style={{
+                                    display:
+                                        clickedButton === 1 ? "block" : "none",
+                                }}
+                            >
+                                <Demo1 />
+                            </div>
+                            {/*Demo 1 */}
+                            <div
+                                class="col-12"
+                                style={{
+                                    display:
+                                        clickedButton === 2 ? "block" : "none",
+                                }}
+                            >
+                                COMPONENT DEMO2
+                            </div>
+                            {/*Demo 2 */}
+                            <div
+                                class="col-12"
+                                style={{
+                                    display:
+                                        clickedButton === 3 ? "block" : "none",
+                                }}
+                            >
+                                COMPONENT DEMO3
+                            </div>
+                            {/*Demo 3 */}
+                            <div
+                                class="col-12"
+                                style={{
+                                    display:
+                                        clickedButton === 4 ? "block" : "none",
+                                }}
+                            >
+                                COMPONENT DEMO4
+                            </div>
+                            {/*Demo 4 */}
+                            <div
+                                class="col-12"
+                                style={{
+                                    display:
+                                        clickedButton === 5 ? "block" : "none",
+                                }}
+                            >
+                                COMPONENT DEMO5
+                            </div>
+                            {/*Demo 5 */}
                         </div>
                     </div>
                 </div>
