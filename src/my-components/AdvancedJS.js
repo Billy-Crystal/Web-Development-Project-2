@@ -3,6 +3,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import Demo1 from "./Demo1";
 import Demo2 from "./Demo2";
+import Demo3 from "./Demo3";
 
 //Function Component
 function AdvancedJS() {
@@ -143,7 +144,9 @@ function AdvancedJS() {
                                 </DndProvider>
                             )}
                             {showComponentDemo3 && (
-                                <div className="col-12">Component Demo-3</div>
+                                <div className="col-12">
+                                    <Demo3 />
+                                </div>
                             )}
                             {showComponentDemo4 && (
                                 <div className="col-12">Component Demo-4</div>
