@@ -4,6 +4,7 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Demo1 from "./Demo1";
 import Demo2 from "./Demo2";
 import Demo3 from "./Demo3";
+import Demo4 from "./Demo4";
 
 //Function Component
 function AdvancedJS() {
@@ -149,7 +150,9 @@ function AdvancedJS() {
                                 </div>
                             )}
                             {showComponentDemo4 && (
-                                <div className="col-12">Component Demo-4</div>
+                                <div className="col-12">
+                                    <Demo4 />
+                                </div>
                             )}
                             {showComponentDemo5 && (
                                 <div className="col-12">Component Demo-5</div>
