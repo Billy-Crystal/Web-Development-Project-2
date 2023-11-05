@@ -5,6 +5,7 @@ import Demo1 from "./Demo1";
 import Demo2 from "./Demo2";
 import Demo3 from "./Demo3";
 import Demo4 from "./Demo4";
+import Demo5 from "./Demo5";
 
 //Function Component
 function AdvancedJS() {
@@ -155,7 +156,9 @@ function AdvancedJS() {
                                 </div>
                             )}
                             {showComponentDemo5 && (
-                                <div className="col-12">Component Demo-5</div>
+                                <div className="col-12">
+                                    <Demo5 />
+                                </div>
                             )}
                         </div>
                     </div>
