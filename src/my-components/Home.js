@@ -1,17 +1,19 @@
 //Import all dependencies, other Components
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import FormCustomerDetail from "./FormCustomerDetail";
 import FormRepairDetail from "./FormRepairDetail";
 import FormCourtesyPhone from "./FormCourtesyPhone";
 import FormCost from "./FormCost";
 import FormButtons from "./FormButtons";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 //Function Component
 function Home() {
     //Parent Component "Home"
     const updateSharedState = (value) => setsharedBond(value); //Child1(FormCourtesyPhone) pass data to Child2
     const [sharedBond, setsharedBond] = useState(0); //Child2(FormCost) receive data from Child1
+    const [customerType, setCustomerType] = useState("customer");
+    const updateCustomerType = (value) => setCustomerType(value);
 
     const updateWarranty = (value) => {
         setsharedWarranty(value);
@@ -47,8 +49,10 @@ function Home() {
                             backgroundColor: "#FCF3CF",
                         }}
                     >
-                        {" "}
-                        <FormCustomerDetail />
+                        <FormCustomerDetail
+                            passDataToParent={updateSharedState}
+                            updateCustomerType={updateCustomerType}
+                        />
                     </div>
 
                     {/*Repair Details*/}
@@ -88,6 +92,7 @@ function Home() {
                             <FormCost
                                 sharedPropBond={sharedBond}
                                 sharedPropWarranty={sharedWarranty}
+                                customerType={customerType}
                             />
                             {/*Child2 (FormCost)*/}
                         </div>

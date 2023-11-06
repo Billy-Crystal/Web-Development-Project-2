@@ -1,5 +1,11 @@
+import React from "react";
 //Function Component
 function FormCost(props) {
+    const bondValue = props.sharedPropWarranty
+        ? 0
+        : props.customerType === "business"
+        ? 0
+        : props.sharedPropBond;
     //Component UI: HTML Rendering
     return (
         <>
@@ -10,7 +16,7 @@ function FormCost(props) {
                     class="col-12 col-md-12 col-lg-7"
                     type="number"
                     id="bond"
-                    value={props.sharedPropBond}
+                    value={bondValue}
                     readonly
                 />
             </div>

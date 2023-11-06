@@ -1,17 +1,27 @@
-//Function Component
-function FormCustomerDetail() {
-    //Component UI: HTML Rendering
+import React, { useState } from "react";
+
+function FormCustomerDetail(props) {
+    const [customerType, setCustomerType] = useState("customer");
+
+    // Function to handle radio button change and update customer type
+    const handleCustomerTypeChange = (event) => {
+        const selectedCustomerType = event.target.value;
+        setCustomerType(selectedCustomerType);
+        props.updateCustomerType(selectedCustomerType);
+        props.passDataToParent(selectedCustomerType !== "business");
+    };
+
     return (
         <>
             <h2>Customer Details</h2>
-            {/*Customer type*/}
-            <div class="row">
-                <fieldset class="border border-primary col-12 col-lg-11 ms-2 me-4">
-                    <legend class="col-11 float-none w-auto">
+            {/* Customer type */}
+            <div className="row">
+                <fieldset className="border border-primary col-12 col-lg-11 ms-2 me-4">
+                    <legend className="col-11 float-none w-auto">
                         Customer type *
                     </legend>
                     <div>
-                        <label class="col-12 col-md-12 col-lg-4">
+                        <label className="col-12 col-md-12 col-lg-4">
                             Customer
                         </label>
                         <input
@@ -19,11 +29,12 @@ function FormCustomerDetail() {
                             id="customerType"
                             name="customer-type"
                             value="customer"
-                            checked
+                            checked={customerType === "customer"}
+                            onChange={handleCustomerTypeChange}
                         />
                     </div>
                     <div>
-                        <label class="col-12 col-md-12 col-lg-4">
+                        <label className="col-12 col-md-12 col-lg-4">
                             Business
                         </label>
                         <input
@@ -31,6 +42,8 @@ function FormCustomerDetail() {
                             id="businessType"
                             name="customer-type"
                             value="business"
+                            checked={customerType === "business"}
+                            onChange={handleCustomerTypeChange}
                         />
                     </div>
                 </fieldset>

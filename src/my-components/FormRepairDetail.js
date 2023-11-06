@@ -1,9 +1,38 @@
-//Function Component
+import React, { useState } from "react";
+
 function FormRepairDetail({ passDataToParent }) {
     const updateWarranty = (value) => {
-        passDataToParent(value); //Child1 (FormCourtesyPhone)
+        passDataToParent(value);
     };
 
+    const [purchaseDate, setPurchaseDate] = useState("");
+    const [isPurchaseDateValid, setIsPurchaseDateValid] = useState(true);
+    const [isRepairDateValid, setIsRepairDateValid] = useState(true);
+
+    const handlePurchaseDateChange = (event) => {
+        const enteredPurchaseDate = new Date(event.target.value);
+        const currentDate = new Date();
+        const tenYearsAgo = new Date(currentDate);
+        tenYearsAgo.setFullYear(currentDate.getFullYear() - 10);
+
+        if (enteredPurchaseDate > currentDate) {
+            setIsPurchaseDateValid(false);
+        } else {
+            setIsPurchaseDateValid(true);
+            setPurchaseDate(event.target.value);
+        }
+    };
+
+    const handleRepairDateChange = (event) => {
+        const enteredRepairDate = new Date(event.target.value);
+        const currentDate = new Date();
+
+        if (enteredRepairDate < currentDate) {
+            setIsRepairDateValid(false);
+        } else {
+            setIsRepairDateValid(true);
+        }
+    };
     //Component UI: HTML Rendering
     return (
         <>
@@ -15,7 +44,14 @@ function FormRepairDetail({ passDataToParent }) {
                     type="date"
                     id="purchaseDate"
                     required
+                    value={purchaseDate}
+                    onChange={handlePurchaseDateChange}
                 />
+                {!isPurchaseDateValid && (
+                    <p className="text-danger">
+                        Purchase date cannot be in the future.
+                    </p>
+                )}
             </div>
             <div class="row mt-1">
                 <label class="col-12 col-md-12 col-lg-4">Repair Date *</label>
@@ -24,7 +60,13 @@ function FormRepairDetail({ passDataToParent }) {
                     type="date"
                     id="repairDate"
                     required
+                    onChange={handleRepairDateChange}
                 />
+                {!isRepairDateValid && (
+                    <p className="text-danger">
+                        Repair date cannot be before today.
+                    </p>
+                )}
             </div>
             {/*Under Warranty*/}
             <div class="row">
@@ -39,6 +81,7 @@ function FormRepairDetail({ passDataToParent }) {
                         <input
                             type="checkbox"
                             id="warranty"
+                            disabled={!isPurchaseDateValid}
                             onChange={(event) =>
                                 updateWarranty(event.target.checked)
                             }
