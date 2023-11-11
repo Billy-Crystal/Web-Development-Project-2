@@ -5,8 +5,8 @@ function Invoice() {
     const location = useLocation();
     const { state } = location;
 
-    // Check if state contains customerFormData
     const customerFormData = state ? state.customerFormData : null;
+    const costData = state ? state.costData : null;
 
     return (
         <div>
@@ -23,6 +23,13 @@ function Invoice() {
                     <p>Postcode: {customerFormData.postcode}</p>
                     <p>Phone Number: {customerFormData.phoneNumber}</p>
                     <p>Email: {customerFormData.email}</p>
+
+                    <h3>Cost Details:</h3>
+                    <p>Bond Value: {costData.bondValue}</p>
+                    <p>Service Fee: {costData.serviceFee}</p>
+                    <p>Total Fee: {costData.totalFee}</p>
+                    <p>GST: {costData.gst}</p>
+                    <p>Total+GST Fee: {costData.totalGstFee}</p>
                 </div>
             ) : (
                 <p>No customer data found.</p>

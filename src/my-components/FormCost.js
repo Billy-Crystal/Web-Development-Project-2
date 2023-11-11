@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-// Function Component
 function FormCost(props) {
-    // Calculate bond value based on customer type
     const bondValue =
         props.customerType === "business" ? 0 : props.sharedPropBond;
-
-    // Calculate service fee based on warranty status
     const serviceFee = props.sharedPropWarranty ? 0 : 85;
-
-    // Calculate total fee, GST, and total with GST
     const totalFee = bondValue + serviceFee;
-    const gst = (totalFee * 0.1).toFixed(2); // Assuming GST is 10%
+    const gst = (totalFee * 0.1).toFixed(2);
     const totalGstFee = (totalFee + parseFloat(gst)).toFixed(2);
 
-    // Component UI: HTML Rendering
+    useEffect(() => {
+        const updateCostData = () => {
+            const costData = {
+                bondValue,
+                serviceFee,
+                totalFee,
+                gst,
+                totalGstFee,
+            };
+            props.passCostDataToParent(costData);
+        };
+
+        updateCostData();
+    }, [bondValue, serviceFee, totalFee, gst, totalGstFee, props]);
+
     return (
         <>
             <h2>Cost</h2>
@@ -76,5 +84,4 @@ function FormCost(props) {
     );
 }
 
-// Export this component to the entire app, can be re-used or hooked into other Components
 export default FormCost;

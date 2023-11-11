@@ -23,22 +23,34 @@ function Home() {
         setCustomerFormData(data);
     };
 
-    const updateSharedState = (value) => setsharedBond(value);
-    const [sharedBond, setsharedBond] = useState(0);
+    const updateSharedState = (value) => setSharedBond(value);
+    const [sharedBond, setSharedBond] = useState(0);
     const [customerType, setCustomerType] = useState("customer");
     const updateCustomerType = (value) => setCustomerType(value);
 
     const updateWarranty = (value) => {
-        setsharedWarranty(value);
+        setSharedWarranty(value);
     };
-    const [sharedWarranty, setsharedWarranty] = useState(false);
+    const [sharedWarranty, setSharedWarranty] = useState(false);
+
+    const [costData, setCostData] = useState({
+        bondValue: 0,
+        serviceFee: 0,
+        totalFee: 0,
+        gst: 0,
+        totalGstFee: 0,
+    });
+
+    const updateCostData = (data) => {
+        setCostData(data);
+    };
 
     const navigate = useNavigate();
 
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
-            navigate("/invoice", { state: { customerFormData } });
+            navigate("/invoice", { state: { customerFormData, costData } });
         } catch (e) {
             alert("ERROR!!!");
         }
@@ -99,6 +111,7 @@ function Home() {
                                 sharedPropBond={sharedBond}
                                 sharedPropWarranty={sharedWarranty}
                                 customerType={customerType}
+                                passCostDataToParent={updateCostData}
                             />
                         </div>
                     </div>
