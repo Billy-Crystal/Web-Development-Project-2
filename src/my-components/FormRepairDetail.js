@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 
 function FormRepairDetail({ passDataToParent }) {
-    const updateWarranty = (value) => {
-        passDataToParent(value);
-    };
-
     const [purchaseDate, setPurchaseDate] = useState("");
     const [isPurchaseDateValid, setIsPurchaseDateValid] = useState(true);
     const [isRepairDateValid, setIsRepairDateValid] = useState(true);
+    const [isWarrantySelectable, setIsWarrantySelectable] = useState(true);
 
     const handlePurchaseDateChange = (event) => {
         const enteredPurchaseDate = new Date(event.target.value);
@@ -17,8 +14,18 @@ function FormRepairDetail({ passDataToParent }) {
 
         if (enteredPurchaseDate > currentDate) {
             setIsPurchaseDateValid(false);
+            setIsWarrantySelectable(true);
         } else {
             setIsPurchaseDateValid(true);
+
+            // Allow warranty selection only if purchase date is not more than 10 years ago
+            if (enteredPurchaseDate > tenYearsAgo) {
+                setIsWarrantySelectable(true);
+            } else {
+                setIsWarrantySelectable(false);
+                passDataToParent(false); // Unselect the warranty checkbox
+            }
+
             setPurchaseDate(event.target.value);
         }
     };
@@ -33,14 +40,17 @@ function FormRepairDetail({ passDataToParent }) {
             setIsRepairDateValid(true);
         }
     };
-    //Component UI: HTML Rendering
+
+    // Component UI: HTML Rendering
     return (
         <>
             <h2>Repair Details</h2>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Purchase Date *</label>
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">
+                    Purchase Date *
+                </label>
                 <input
-                    class="col-12 col-md-12 col-lg-7"
+                    className="col-12 col-md-12 col-lg-7"
                     type="date"
                     id="purchaseDate"
                     required
@@ -53,10 +63,12 @@ function FormRepairDetail({ passDataToParent }) {
                     </p>
                 )}
             </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Repair Date *</label>
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">
+                    Repair Date *
+                </label>
                 <input
-                    class="col-12 col-md-12 col-lg-7"
+                    className="col-12 col-md-12 col-lg-7"
                     type="date"
                     id="repairDate"
                     required
@@ -68,25 +80,23 @@ function FormRepairDetail({ passDataToParent }) {
                     </p>
                 )}
             </div>
-            {/*Under Warranty*/}
-            <div class="row">
-                <fieldset class="border border-primary col-12 col-lg-11 ms-1 me-4 mb-3">
-                    <legend class="col-11 float-none w-auto">
+            <div className="row">
+                <fieldset className="border border-primary col-12 col-lg-11 ms-1 me-4 mb-3">
+                    <legend className="col-11 float-none w-auto">
                         Under Warranty
                     </legend>
                     <div>
-                        <label class="col-12 col-md-12 col-lg-4">
+                        <label className="col-12 col-md-12 col-lg-4">
                             Warranty
                         </label>
                         <input
                             type="checkbox"
                             id="warranty"
-                            disabled={!isPurchaseDateValid}
+                            disabled={!isWarrantySelectable}
                             onChange={(event) =>
-                                updateWarranty(event.target.checked)
+                                passDataToParent(event.target.checked)
                             }
                         />
-                        {/*passDataToParent(event.target.checked). This is shared warranty need to pass upto parent Component "Home" */}
                     </div>
                 </fieldset>
             </div>
