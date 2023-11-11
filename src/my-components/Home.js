@@ -1,49 +1,59 @@
-//Import all dependencies, other Components
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import FormCustomerDetail from "./FormCustomerDetail";
 import FormRepairDetail from "./FormRepairDetail";
 import FormCourtesyPhone from "./FormCourtesyPhone";
 import FormCost from "./FormCost";
 import FormButtons from "./FormButtons";
 
-//Function Component
 function Home() {
-    //Parent Component "Home"
-    const updateSharedState = (value) => setsharedBond(value); //Child1(FormCourtesyPhone) pass data to Child2
-    const [sharedBond, setsharedBond] = useState(0); //Child2(FormCost) receive data from Child1
+    const [customerFormData, setCustomerFormData] = useState({
+        title: "Mr",
+        firstName: "",
+        lastName: "",
+        street: "",
+        suburb: "",
+        city: "",
+        postcode: "",
+        phoneNumber: "",
+        email: "",
+    });
+
+    const updateCustomerFormData = (data) => {
+        setCustomerFormData(data);
+    };
+
+    const updateSharedState = (value) => setsharedBond(value);
+    const [sharedBond, setsharedBond] = useState(0);
     const [customerType, setCustomerType] = useState("customer");
     const updateCustomerType = (value) => setCustomerType(value);
 
     const updateWarranty = (value) => {
         setsharedWarranty(value);
-    }; //Child1 pass data to Child2
-    const [sharedWarranty, setsharedWarranty] = useState(false); //Child2 receive data from Child1
+    };
+    const [sharedWarranty, setsharedWarranty] = useState(false);
 
     const navigate = useNavigate();
+
     const onSubmit = async (event) => {
-        event.preventDefault(); //prevent browser from sending data to server
+        event.preventDefault();
         try {
-            //open the "Invoice" component
-            //alert('Form was submitted!');
-            navigate("/invoice");
+            navigate("/invoice", { state: { customerFormData } });
         } catch (e) {
             alert("ERROR!!!");
         }
     };
 
-    //Component UI: HTML Rendering
     return (
         <>
-            <div class="container-fluid">
+            <div className="container-fluid">
                 <form
-                    class="row"
+                    className="row"
                     style={{ minHeight: "60vh" }}
                     onSubmit={onSubmit}
                 >
-                    {/*Customner Details*/}
                     <div
-                        class="col-12 col-lg-4 p-4 m-0"
+                        className="col-12 col-lg-4 p-4 m-0"
                         style={{
                             minHeight: "30vh",
                             backgroundColor: "#FCF3CF",
@@ -52,12 +62,12 @@ function Home() {
                         <FormCustomerDetail
                             passDataToParent={updateSharedState}
                             updateCustomerType={updateCustomerType}
+                            updateCustomerFormData={updateCustomerFormData}
                         />
                     </div>
 
-                    {/*Repair Details*/}
                     <div
-                        class="col-12 col-lg-4 p-4 m-0"
+                        className="col-12 col-lg-4 p-4 m-0"
                         style={{
                             minHeight: "30vh",
                             backgroundColor: "#D5F5E3",
@@ -66,11 +76,9 @@ function Home() {
                         <FormRepairDetail passDataToParent={updateWarranty} />
                     </div>
 
-                    {/*Courtesy Phone & Cost*/}
-                    <div class="col-12 col-lg-4 p-0 m-0">
-                        {/*Courtesy phone*/}
+                    <div className="col-12 col-lg-4 p-0 m-0">
                         <div
-                            class="p-4"
+                            className="p-4"
                             style={{
                                 minHeight: "30vh",
                                 backgroundColor: "#2874A6",
@@ -79,11 +87,9 @@ function Home() {
                             <FormCourtesyPhone
                                 passDataToParent={updateSharedState}
                             />
-                            {/*Child1*/}
                         </div>
-                        {/*Cost*/}
                         <div
-                            class="p-4"
+                            className="p-4"
                             style={{
                                 minHeight: "20vh",
                                 backgroundColor: "#EDBB99",
@@ -94,13 +100,11 @@ function Home() {
                                 sharedPropWarranty={sharedWarranty}
                                 customerType={customerType}
                             />
-                            {/*Child2 (FormCost)*/}
                         </div>
                     </div>
 
-                    {/*Button area*/}
                     <div
-                        class="p-4 text-center"
+                        className="p-4 text-center"
                         style={{
                             minHeight: "10vh",
                             backgroundColor: "#EDBB99",
@@ -114,5 +118,4 @@ function Home() {
     );
 }
 
-//Export this component to the entire app, can be re-used or hooked into other Components
 export default Home;
