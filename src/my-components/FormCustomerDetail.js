@@ -8,7 +8,6 @@ function FormCustomerDetail(props) {
         const selectedCustomerType = event.target.value;
         setCustomerType(selectedCustomerType);
         props.updateCustomerType(selectedCustomerType);
-        props.passDataToParent(selectedCustomerType !== "business");
     };
 
     return (
