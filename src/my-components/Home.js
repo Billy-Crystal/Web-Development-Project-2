@@ -45,12 +45,25 @@ function Home() {
         setCostData(data);
     };
 
+    const [repairData, setRepairData] = useState({
+        purchaseDate: "",
+        repairDate: "",
+        warranty: false,
+        // Add other properties as needed
+    });
+
+    const updateRepairData = (data) => {
+        setRepairData(data);
+    };
+
     const navigate = useNavigate();
 
     const onSubmit = async (event) => {
         event.preventDefault();
         try {
-            navigate("/invoice", { state: { customerFormData, costData } });
+            navigate("/invoice", {
+                state: { customerFormData, costData, repairData },
+            });
         } catch (e) {
             alert("ERROR!!!");
         }
@@ -85,7 +98,10 @@ function Home() {
                             backgroundColor: "#D5F5E3",
                         }}
                     >
-                        <FormRepairDetail passDataToParent={updateWarranty} />
+                        <FormRepairDetail
+                            passDataToParent={updateWarranty}
+                            passRepairDataToParent={updateRepairData}
+                        />
                     </div>
 
                     <div className="col-12 col-lg-4 p-0 m-0">

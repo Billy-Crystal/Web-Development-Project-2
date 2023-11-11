@@ -1,10 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function FormRepairDetail({ passDataToParent }) {
+function FormRepairDetail({ passDataToParent, passRepairDataToParent }) {
     const [purchaseDate, setPurchaseDate] = useState("");
+    const [repairDate, setRepairDate] = useState("");
     const [isPurchaseDateValid, setIsPurchaseDateValid] = useState(true);
     const [isRepairDateValid, setIsRepairDateValid] = useState(true);
     const [isWarrantySelectable, setIsWarrantySelectable] = useState(true);
+    const [imei, setImei] = useState("");
+    const [make, setMake] = useState("none");
+    const [modelNumber, setModelNumber] = useState("");
+    const [faultCategory, setFaultCategory] = useState("none");
+    const [description, setDescription] = useState("");
+
+    useEffect(() => {
+        passRepairDataToParent({
+            purchaseDate,
+            repairDate,
+            warranty:
+                isWarrantySelectable &&
+                document.getElementById("warranty").checked,
+            imei,
+            make,
+            modelNumber,
+            faultCategory,
+            description,
+        });
+    }, [
+        purchaseDate,
+        repairDate,
+        isWarrantySelectable,
+        imei,
+        make,
+        modelNumber,
+        faultCategory,
+        description,
+        passRepairDataToParent,
+    ]);
 
     const handlePurchaseDateChange = (event) => {
         const enteredPurchaseDate = new Date(event.target.value);
@@ -18,12 +49,11 @@ function FormRepairDetail({ passDataToParent }) {
         } else {
             setIsPurchaseDateValid(true);
 
-            // Allow warranty selection only if purchase date is not more than 10 years ago
             if (enteredPurchaseDate > tenYearsAgo) {
                 setIsWarrantySelectable(true);
             } else {
                 setIsWarrantySelectable(false);
-                passDataToParent(false); // Unselect the warranty checkbox
+                passDataToParent(false);
             }
 
             setPurchaseDate(event.target.value);
@@ -39,9 +69,10 @@ function FormRepairDetail({ passDataToParent }) {
         } else {
             setIsRepairDateValid(true);
         }
+
+        setRepairDate(event.target.value);
     };
 
-    // Component UI: HTML Rendering
     return (
         <>
             <h2>Repair Details</h2>
@@ -100,59 +131,75 @@ function FormRepairDetail({ passDataToParent }) {
                     </div>
                 </fieldset>
             </div>
-            {/*Other details*/}
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">IMEI Number: *</label>
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">
+                    IMEI Number: *
+                </label>
                 <input
-                    class="col-12 col-md-12 col-lg-7"
+                    className="col-12 col-md-12 col-lg-7"
                     type="number"
                     id="imei"
                     required
+                    value={imei}
+                    onChange={(event) => setImei(event.target.value)}
                 />
             </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Make:</label>
-                <select class="col-12 col-md-12 col-lg-7" id="makeList">
-                    <option value="none" selected>
-                        None
-                    </option>
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">Make:</label>
+                <select
+                    className="col-12 col-md-12 col-lg-7"
+                    id="makeList"
+                    value={make}
+                    onChange={(event) => setMake(event.target.value)}
+                >
+                    <option value="none">None</option>
                     <option value="iphone">iPhone</option>
                     <option value="samsung">Samsung Galaxy</option>
                     <option value="nokia">Nokia</option>
                 </select>
             </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Model Number:</label>
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">
+                    Model Number:
+                </label>
                 <input
-                    class="col-12 col-md-12 col-lg-7"
+                    className="col-12 col-md-12 col-lg-7"
                     type="number"
                     id="modelnumber"
+                    value={modelNumber}
+                    onChange={(event) => setModelNumber(event.target.value)}
                 />
             </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">
                     Fault Category: *
                 </label>
-                <select class="col-12 col-md-12 col-lg-7" id="faultcategory">
-                    <option value="none" selected>
-                        None
-                    </option>
+                <select
+                    className="col-12 col-md-12 col-lg-7"
+                    id="faultcategory"
+                    value={faultCategory}
+                    onChange={(event) => setFaultCategory(event.target.value)}
+                >
+                    <option value="none">None</option>
                     <option value="screen">Screen</option>
                     <option value="battery">Battery</option>
                 </select>
             </div>
-            <div class="row mt-1">
-                <label class="col-12 col-md-12 col-lg-4">Description: *</label>
+            <div className="row mt-1">
+                <label className="col-12 col-md-12 col-lg-4">
+                    Description: *
+                </label>
                 <textarea
-                    class="col-12 col-md-12 col-lg-7"
+                    className="col-12 col-md-12 col-lg-7"
                     id="description"
                     required
                     style={{ resize: "vertical", minHeight: "135px" }}
+                    value={description}
+                    onChange={(event) => setDescription(event.target.value)}
                 />
             </div>
         </>
     );
 }
 
-//Export this component to the entire app, can be re-used or hooked into other Components
 export default FormRepairDetail;

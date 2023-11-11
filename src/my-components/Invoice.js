@@ -7,6 +7,7 @@ function Invoice() {
 
     const customerFormData = state ? state.customerFormData : null;
     const costData = state ? state.costData : null;
+    const repairData = state ? state.repairData : null;
 
     return (
         <div>
@@ -30,6 +31,17 @@ function Invoice() {
                     <p>Total Fee: {costData.totalFee}</p>
                     <p>GST: {costData.gst}</p>
                     <p>Total+GST Fee: {costData.totalGstFee}</p>
+
+                    <h3>Repair Details:</h3>
+                    <p>Purchase Date: {repairData.purchaseDate}</p>
+                    <p>Repair Date: {repairData.repairDate}</p>
+                    <p>Under Warranty: {repairData.warranty ? "Yes" : "No"}</p>
+                    <p>IMEI Number: {repairData.imei}</p>
+                    <p>Make: {repairData.make}</p>
+                    <p>Model Number: {repairData.modelNumber}</p>
+                    <p>Fault Category: {repairData.faultCategory}</p>
+                    <p>Description: {repairData.description}</p>
+                    {/* Add other properties as needed */}
                 </div>
             ) : (
                 <p>No customer data found.</p>
