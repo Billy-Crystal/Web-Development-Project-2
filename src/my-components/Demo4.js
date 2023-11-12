@@ -1,59 +1,44 @@
 import React, { useState } from "react";
+import { ReactComponent as NewZealandMap } from "./images/nz.svg";
 
 function Demo4() {
-    const [geolocation, setGeolocation] = useState(null);
-    const [errorMessage, setErrorMessage] = useState("");
+    const [hoveredRegion, setHoveredRegion] = useState(null);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-    const getLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition, showError);
-        } else {
-            setErrorMessage("Geolocation is not supported by this browser.");
-        }
+    const handleMouseOver = (region, event) => {
+        setHoveredRegion(region);
+        setMousePosition({ x: event.clientX, y: event.clientY });
     };
 
-    const showPosition = (position) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        setGeolocation(`Latitude: ${latitude} <br /> Longitude: ${longitude}`);
-    };
-
-    const showError = (error) => {
-        switch (error.code) {
-            case error.PERMISSION_DENIED:
-                setErrorMessage("User denied the request for Geolocation.");
-                break;
-            case error.POSITION_UNAVAILABLE:
-                setErrorMessage("Location information is unavailable.");
-                break;
-            case error.TIMEOUT:
-                setErrorMessage(
-                    "The request to get user location has timed out."
-                );
-                break;
-            case error.UNKNOWN_ERROR:
-                setErrorMessage("An unknown error occurred.");
-                break;
-            default:
-                setErrorMessage("An error occurred while getting location.");
-                break;
-        }
+    const handleMouseOut = () => {
+        setHoveredRegion(null);
     };
 
     return (
         <div>
-            <hr />
-            <section>
-                <h1>Advanced JS: HTML Geolocation</h1>
-
-                <p>Click the button to get your coordinates.</p>
-                <button onClick={getLocation}>Get current location</button>
-                {errorMessage ? (
-                    <p>{errorMessage}</p>
-                ) : (
-                    <p dangerouslySetInnerHTML={{ __html: geolocation }} />
+            <h2>New Zealand Map</h2>
+            <div style={{ position: "relative" }}>
+                <NewZealandMap
+                    style={{ width: "100%" }}
+                    onMouseOver={(e) => handleMouseOver("Manawatu-Wanganui", e)}
+                    onMouseOut={handleMouseOut}
+                />
+                {hoveredRegion && (
+                    <div
+                        style={{
+                            position: "absolute",
+                            top: mousePosition.y,
+                            left: mousePosition.x,
+                            backgroundColor: "white",
+                            border: "1px solid #ccc",
+                            padding: "10px",
+                            zIndex: 999,
+                        }}
+                    >
+                        <p>Hovered Region: {hoveredRegion}</p>
+                    </div>
                 )}
-            </section>
+            </div>
         </div>
     );
 }
