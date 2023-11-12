@@ -21,8 +21,8 @@ const PictureList = [
     },
 ];
 
-function Demo2() {
-    const [board, setBoard] = useState([]);
+const Demo2 = () => {
+    const [board, setBoard] = useState(new Set());
     const [{ isOver }, drop] = useDrop(() => ({
         accept: "image",
         drop: (item) => addImageToBoard(item.id),
@@ -30,30 +30,44 @@ function Demo2() {
             isOver: !!monitor.isOver(),
         }),
     }));
+
     const addImageToBoard = (id) => {
-        const selectedPicture = PictureList.find(
-            (picture) => picture.id === id
-        );
-        if (selectedPicture) {
-            setBoard((board) => [...board, selectedPicture]);
+        if (!board.has(id)) {
+            setBoard((prevBoard) => new Set(prevBoard).add(id));
+            const selectedPicture = PictureList.find(
+                (picture) => picture.id === id
+            );
+
+            if (selectedPicture) {
+                setBoard((prevBoard) => new Set(prevBoard).add(id));
+            }
         }
     };
 
     return (
         <>
             <div className="Pictures">
-                {" "}
-                {PictureList.map((picture) => {
-                    return <Picture url={picture.url} id={picture.id} />;
-                })}{" "}
+                <h1>Drag and Drop</h1>
+                {PictureList.map((picture) => (
+                    <Picture
+                        url={picture.url}
+                        id={picture.id}
+                        key={picture.id}
+                    />
+                ))}{" "}
             </div>
             <div className="Board" ref={drop}>
-                {board.map((picture) => {
-                    return <Picture url={picture.url} id={picture.id} />;
+                {[...board].map((id) => {
+                    const selectedPicture = PictureList.find(
+                        (picture) => picture.id === id
+                    );
+                    return (
+                        <Picture url={selectedPicture.url} id={id} key={id} />
+                    );
                 })}
             </div>
         </>
     );
-}
+};
 
 export default Demo2;

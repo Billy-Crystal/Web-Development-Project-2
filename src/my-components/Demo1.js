@@ -56,6 +56,7 @@ export class Demo1 extends Component {
         //Outputs the HTML/JSX to the DOM.
         return (
             <div style={slideShowStyle}>
+                <h1>Automatic Slideshow</h1>
                 <img
                     style={{ height: "250px" }}
                     src={this.state.images[this.state.currentIndex]}
