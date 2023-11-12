@@ -43,8 +43,8 @@ function FormRepairDetail({ passDataToParent, passRepairDataToParent }) {
     const handlePurchaseDateChange = (event) => {
         const enteredPurchaseDate = new Date(event.target.value);
         const currentDate = new Date();
-        const tenYearsAgo = new Date(currentDate);
-        tenYearsAgo.setFullYear(currentDate.getFullYear() - 10);
+        const twoYearsAgo = new Date(currentDate);
+        twoYearsAgo.setFullYear(currentDate.getFullYear() - 2);
 
         if (enteredPurchaseDate > currentDate) {
             setIsPurchaseDateValid(false);
@@ -52,7 +52,7 @@ function FormRepairDetail({ passDataToParent, passRepairDataToParent }) {
         } else {
             setIsPurchaseDateValid(true);
 
-            if (enteredPurchaseDate > tenYearsAgo) {
+            if (enteredPurchaseDate > twoYearsAgo) {
                 setIsWarrantySelectable(true);
             } else {
                 setIsWarrantySelectable(false);
@@ -71,9 +71,8 @@ function FormRepairDetail({ passDataToParent, passRepairDataToParent }) {
             setIsRepairDateValid(false);
         } else {
             setIsRepairDateValid(true);
+            setRepairDate(event.target.value);
         }
-
-        setRepairDate(event.target.value);
     };
 
     return (
@@ -106,6 +105,7 @@ function FormRepairDetail({ passDataToParent, passRepairDataToParent }) {
                     type="date"
                     id="repairDate"
                     required
+                    value={repairDate}
                     onChange={handleRepairDateChange}
                 />
                 {!isRepairDateValid && (
@@ -140,9 +140,12 @@ function FormRepairDetail({ passDataToParent, passRepairDataToParent }) {
                 </label>
                 <input
                     className="col-12 col-md-12 col-lg-7"
-                    type="number"
+                    type="text" // Change the input type to text
                     id="imei"
                     required
+                    maxLength="15" // Set the maximum length to 15 characters
+                    pattern="\d{15}" // Use a regular expression to allow only 15 digits
+                    title="Please enter a 15-digit number" // Custom validation message
                     value={imei}
                     onChange={(event) => setImei(event.target.value)}
                 />
@@ -156,9 +159,13 @@ function FormRepairDetail({ passDataToParent, passRepairDataToParent }) {
                     onChange={(event) => setMake(event.target.value)}
                 >
                     <option value="none">None</option>
-                    <option value="iphone">iPhone</option>
-                    <option value="samsung">Samsung Galaxy</option>
+                    <option value="iphone">Apple</option>
+                    <option value="samsung">LG</option>
+                    <option value="nokia">Motorola</option>
                     <option value="nokia">Nokia</option>
+                    <option value="nokia">Samsung</option>
+                    <option value="nokia">Sony</option>
+                    <option value="nokia">Other</option>
                 </select>
             </div>
             <div className="row mt-1">
@@ -184,8 +191,12 @@ function FormRepairDetail({ passDataToParent, passRepairDataToParent }) {
                     onChange={(event) => setFaultCategory(event.target.value)}
                 >
                     <option value="none">None</option>
-                    <option value="screen">Screen</option>
-                    <option value="battery">Battery</option>
+                    <option value="screen">Battery</option>
+                    <option value="battery">Charging</option>
+                    <option value="battery">Screen</option>
+                    <option value="battery">SD-Storage</option>
+                    <option value="battery">Software</option>
+                    <option value="battery">Other</option>
                 </select>
             </div>
             <div className="row mt-1">

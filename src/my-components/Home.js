@@ -49,6 +49,11 @@ function Home() {
         purchaseDate: "",
         repairDate: "",
         warranty: "",
+        imei: "",
+        make: "",
+        modelNumber: "",
+        faultCategory: "",
+        description: "",
         // Add other properties as needed
     });
 

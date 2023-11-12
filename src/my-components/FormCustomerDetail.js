@@ -100,9 +100,17 @@ function FormCustomerDetail(props) {
                     id="firstName"
                     required
                     value={formData.firstName}
-                    onChange={handleInputChange}
+                    onChange={(event) => {
+                        const { id, value } = event.target;
+                        const sanitizedValue = value.replace(
+                            /[^a-zA-Z\s-]/g,
+                            ""
+                        );
+                        setFormData({ ...formData, [id]: sanitizedValue });
+                    }}
                 />
             </div>
+
             <div className="row mt-1">
                 <label className="col-12 col-md-12 col-lg-4">Last Name *</label>
                 <input
@@ -111,7 +119,14 @@ function FormCustomerDetail(props) {
                     id="lastName"
                     required
                     value={formData.lastName}
-                    onChange={handleInputChange}
+                    onChange={(event) => {
+                        const { id, value } = event.target;
+                        const sanitizedValue = value.replace(
+                            /[^a-zA-Z\s-]/g,
+                            ""
+                        );
+                        setFormData({ ...formData, [id]: sanitizedValue });
+                    }}
                 />
             </div>
             <div className="row mt-1">
@@ -153,7 +168,14 @@ function FormCustomerDetail(props) {
                     type="text"
                     id="postcode"
                     value={formData.postcode}
-                    onChange={handleInputChange}
+                    onChange={(event) => {
+                        const { id, value } = event.target;
+                        // Restrict to 4 digits
+                        const sanitizedValue = value
+                            .replace(/\D/g, "")
+                            .slice(0, 4);
+                        setFormData({ ...formData, [id]: sanitizedValue });
+                    }}
                 />
             </div>
             <div className="row mt-1">
@@ -166,7 +188,17 @@ function FormCustomerDetail(props) {
                     id="phoneNumber"
                     required
                     value={formData.phoneNumber}
-                    onChange={handleInputChange}
+                    onChange={(event) => {
+                        const inputValue = event.target.value;
+                        const sanitizedValue = inputValue.replace(
+                            /[^0-9+() -]/g,
+                            ""
+                        ); // Remove invalid characters
+                        setFormData({
+                            ...formData,
+                            phoneNumber: sanitizedValue,
+                        });
+                    }}
                 />
             </div>
             <div className="row mt-1">
