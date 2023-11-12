@@ -40,14 +40,13 @@ export class Demo1 extends Component {
     //----------------------------
     //Other methods
     tick = () => {
-        //Update/set the "currentIdex" state
-        if (this.state.currentIndex < this.state.images.length - 1) {
-            this.state.currentIndex++;
-        } else {
-            this.state.currentIndex = 0;
-        }
-        //Need to set this "currentIndex" state so that the component is rendered again
-        this.setState((state) => ({ currentIndex: state.currentIndex }));
+        this.setState((state) => {
+            let newIndex =
+                state.currentIndex < state.images.length - 1
+                    ? state.currentIndex + 1
+                    : 0;
+            return { currentIndex: newIndex };
+        });
     };
 
     //----------------------------
