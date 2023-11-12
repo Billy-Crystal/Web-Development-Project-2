@@ -48,7 +48,7 @@ function Home() {
     const [repairData, setRepairData] = useState({
         purchaseDate: "",
         repairDate: "",
-        warranty: false,
+        warranty: "",
         // Add other properties as needed
     });
 
@@ -62,7 +62,11 @@ function Home() {
         event.preventDefault();
         try {
             navigate("/invoice", {
-                state: { customerFormData, costData, repairData },
+                state: {
+                    customerFormData,
+                    costData,
+                    repairData,
+                },
             });
         } catch (e) {
             alert("ERROR!!!");

@@ -13,12 +13,15 @@ function FormRepairDetail({ passDataToParent, passRepairDataToParent }) {
     const [description, setDescription] = useState("");
 
     useEffect(() => {
+        const warranty =
+            isWarrantySelectable && document.getElementById("warranty").checked
+                ? "Yes"
+                : "No";
+
         passRepairDataToParent({
             purchaseDate,
             repairDate,
-            warranty:
-                isWarrantySelectable &&
-                document.getElementById("warranty").checked,
+            warranty,
             imei,
             make,
             modelNumber,

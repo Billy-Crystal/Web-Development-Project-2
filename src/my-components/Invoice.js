@@ -5,47 +5,109 @@ function Invoice() {
     const location = useLocation();
     const { state } = location;
 
-    const customerFormData = state ? state.customerFormData : null;
-    const costData = state ? state.costData : null;
-    const repairData = state ? state.repairData : null;
+    const customerFormData = state ? state.customerFormData : {};
+    const costData = state ? state.costData : {};
+    const repairData = state ? state.repairData : {};
 
     return (
-        <div>
-            <h2>Invoice</h2>
-            {customerFormData ? (
-                <div>
-                    <h3>Customer Details:</h3>
-                    <p>Title: {customerFormData.title}</p>
-                    <p>First Name: {customerFormData.firstName}</p>
-                    <p>Last Name: {customerFormData.lastName}</p>
-                    <p>Street: {customerFormData.street}</p>
-                    <p>Suburb: {customerFormData.suburb}</p>
-                    <p>City: {customerFormData.city}</p>
-                    <p>Postcode: {customerFormData.postcode}</p>
-                    <p>Phone Number: {customerFormData.phoneNumber}</p>
-                    <p>Email: {customerFormData.email}</p>
-
-                    <h3>Cost Details:</h3>
-                    <p>Bond Value: {costData.bondValue}</p>
-                    <p>Service Fee: {costData.serviceFee}</p>
-                    <p>Total Fee: {costData.totalFee}</p>
-                    <p>GST: {costData.gst}</p>
-                    <p>Total+GST Fee: {costData.totalGstFee}</p>
-
-                    <h3>Repair Details:</h3>
-                    <p>Purchase Date: {repairData.purchaseDate}</p>
-                    <p>Repair Date: {repairData.repairDate}</p>
-                    <p>Under Warranty: {repairData.warranty ? "Yes" : "No"}</p>
-                    <p>IMEI Number: {repairData.imei}</p>
-                    <p>Make: {repairData.make}</p>
-                    <p>Model Number: {repairData.modelNumber}</p>
-                    <p>Fault Category: {repairData.faultCategory}</p>
-                    <p>Description: {repairData.description}</p>
-                    {/* Add other properties as needed */}
+        <div className="container-fluid">
+            <div className="row bg-secondary">
+                <div className="col-6">
+                    <h1>Repair Booking</h1>
                 </div>
-            ) : (
-                <p>No customer data found.</p>
-            )}
+                <div className="col-6">
+                    <h4>Amount Due:</h4>
+                    <p>{costData.totalGstFee}</p>
+                </div>
+            </div>
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-6">
+                        <div>
+                            <h2>
+                                <br></br>
+                                Customer<br></br>
+                                <br></br>
+                            </h2>
+                        </div>
+                        <div>
+                            {customerFormData.title}{" "}
+                            {customerFormData.firstName}{" "}
+                            {customerFormData.lastName}
+                        </div>
+                        <div>{customerFormData.street}</div>
+                        <div>
+                            {customerFormData.suburb}, {customerFormData.city}{" "}
+                            {customerFormData.postcode}
+                        </div>
+                        <div>{customerFormData.phoneNumber}</div>
+                        <div>{customerFormData.email}</div>
+                    </div>
+                    <div className="col-6">
+                        <div>
+                            <h2>
+                                <br></br>
+                                Repair Job<br></br>
+                                <br></br>
+                            </h2>
+                        </div>
+                        <div className="row">
+                            <div className="col-6">
+                                <div>{customerFormData.email}</div>
+                                <div>{customerFormData.email}</div>
+                            </div>
+                            <div className="col-6">
+                                <div>{customerFormData.email}</div>
+                                <div>{customerFormData.email}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr></hr>
+            <div className="container-fluid">
+                <div className="p-4">
+                    <div>
+                        <h2>Repair Details</h2>
+                    </div>
+                    <div>Purchase Date: {repairData.purchaseDate}</div>
+                    <div>Repair Date: {repairData.repairDate}</div>
+                    <div>Under Warranty: {repairData.warranty}</div>
+                </div>
+                <div className="p-4">
+                    <div>
+                        <h3>Courtesy Loan Device Details:</h3>
+                    </div>
+                    <div>
+                        <p>Purchase Date: </p>
+                    </div>
+                    <div>
+                        <p>Repair Date: {repairData.repairDate}</p>
+                    </div>
+                    <div>
+                        <h2>Total:</h2>
+                    </div>
+                    <div>
+                        <p>{costData.totalGstFee}</p>
+                    </div>
+                </div>
+            </div>
+            <div className="bg-light p-4"></div>
+
+            <div className="bg-light p-4 text-center">
+                <div>
+                    <p>27, Mid Lodge 234</p>
+                </div>
+                <div>
+                    <p>Carmel, Indiana 1234</p>
+                </div>
+                <div>
+                    <p>Phone: 765-4321</p>
+                </div>
+                <div>
+                    <p>Thank you for your business!</p>
+                </div>
+            </div>
         </div>
     );
 }
